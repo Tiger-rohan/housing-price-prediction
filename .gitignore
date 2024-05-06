@@ -15,10 +15,10 @@
 **/_version.py
 
 # Ignore dataset and model folders
-data
+
 artifacts
 mlruns
-
+data
 src/tigerml
 src/BayesFramework
 src/bonmin
