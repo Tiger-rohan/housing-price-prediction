@@ -1,22 +1,17 @@
 jobs:
   - name: data-cleaning
     stages:
-      - name: "clean-base-tables"
+      - name: "clean-tables"
         tasks:
-          - name: "product"
-            params: {}
+          # - name: "product"
+          #   params: {}
           - name: "orders"
-            params: {}
-
-      - name: "clean-derivative-tables"
-        tasks:
-          - name: "sales"
             params: {}
       - name: "train-test-split"
         tasks:
           - name: "train-test"
             params:
-              target: unit_price
+              target: median_house_value
               test_size: 0.2
 
   - name: feat-engg

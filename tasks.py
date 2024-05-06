@@ -54,6 +54,13 @@ addon_dict = {
 def _get_env_name(env):
     return f"{ENV_PREFIX}-{env}"
 
+@task(name="complexity")
+def complexity(c, platform=PLATFORM, env=DEV_ENV, path="."):
+    """Calculates complexity score for the codebase using radon."""
+    env_name = _get_env_name(env)
+    with py_env(c, env_name):
+        res = c.run(f"radon cc -s -a {path}")
+    return res.stdout
 
 def _get_env_name_pyspark(env):
     return f"{ENV_PREFIX_PYSPARK}-{env}"
@@ -779,6 +786,7 @@ def setup_ci_env(c, platform=PLATFORM, force=False):
 _create_task_collection(
     "dev",
     setup_env,
+
     setup_env_pyspark,
     format_code,
     refresh_version,
@@ -788,6 +796,7 @@ _create_task_collection(
     setup_info,
     _build_docker_image,
     setup_ci_env,
+    complexity
 )
 
 
